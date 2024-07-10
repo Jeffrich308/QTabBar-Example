@@ -17,6 +17,7 @@ from PyQt5.QtWidgets import (
     QLineEdit,
     QTabBar,
     QLabel,
+    QTabWidget,
 )
 from PyQt5 import uic
 import sys
@@ -38,11 +39,11 @@ class UI(QMainWindow):
 
         self.actExit = self.findChild(QAction, "actExit")
 
-        self.tabWidget = self.findChild(QTabBar, "tabWidget")
+        self.tabWidget = self.findChild(QTabWidget, "tabWidget")
 
         # Define the actions#######################################################################
         self.btnExit.clicked.connect(self.closeEvent)
-        self.txtInputName.returnPressed.connect(self.update_name)
+        self.txtInputName.returnPressed.connect(self.update_name) # Runs function when Enter is pressed
 
         self.actExit.triggered.connect(self.closeEvent)
 
@@ -53,7 +54,8 @@ class UI(QMainWindow):
         # Takes input from the second tab and updates the name label on the first tab when
         # enter is pressed.
         self.lblName.setText(self.txtInputName.text())
-        self.txtInputName.clear()
+        self.txtInputName.clear()  # Clears entry box
+        self.tabWidget.setCurrentIndex(0)  # Changes to Home (index 0) Tab to display results
 
     def closeEvent(self, *args, **kwargs):
         # print("Program closed Successfully!")
